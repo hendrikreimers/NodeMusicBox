@@ -1,9 +1,3 @@
-/**
- * I KNOW....
- * Socket.IO isn't currently used in this project!
- * But it's nice to know, how you should use it ;-)
- */
-
 // Loading dependencies
 var express      = require('express'),
     http         = require('http'),
