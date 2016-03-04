@@ -33,8 +33,15 @@ angular.module('Services').factory('Player', ['$rootScope', 'VarStorage', functi
 
     // Start playing if load startet
     playerEl.addEventListener('loadstart', function() {
+        $rootScope.$broadcast('progress', {progress: 0});
         _play();
     }, true);
+
+    // Duration status
+    playerEl.addEventListener('timeupdate', function() {
+        var p = Math.ceil((this.currentTime / this.duration) * 100);
+        $rootScope.$broadcast('progress', {progress: p});
+    });
 
 
 

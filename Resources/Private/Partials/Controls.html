@@ -3,11 +3,18 @@
         <img src="/api/cover/{{currentSong._id}}" class="img-responsive" ng-show="currentSong.cover">
         <img src="/img/no-cover.jpg" class="img-responsive" ng-show="!currentSong.cover">
     </div>
-    <div class="col-sm-8">
+    <div class="info col-sm-8">
         <div class="currentInfo">
             <div class="error" ng-show="currentSong.error">{{currentSong.error}}</div>
             <div class="title"><span ng-show="currentSong.title">{{currentSong.title}}</span>&nbsp;</div>
             <div class="artist"><span ng-show="currentSong.artist">{{currentSong.artist}}</span>&nbsp;</div>
+
+            <div class="progress">
+                <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%">
+                    <span class="sr-only">{{progress}}% Complete</span>
+                </div>
+            </div>
+
         </div>
         <div class="buttons">
             <a href="#" class="prev btn glyphicon glyphicon-step-backward disabled" ng-click="prev()"><span class="sr-only">Previous</span></a>

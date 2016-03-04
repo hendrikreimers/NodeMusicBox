@@ -27,6 +27,13 @@ audio {
 
 
 
+.progress {
+    height: 10px;
+    margin-bottom: 0;
+}
+
+
+
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
@@ -193,6 +200,19 @@ html, body {
 
 .playlists ul li {
     border-bottom: 1px solid #fff;
+    position: relative;
+}
+
+.playlists ul li.highlight a::before {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    display: block;
+    width: 10px;
+    background: darkred;
 }
 
 .playlists ul li a {
@@ -265,6 +285,10 @@ html, body {
     text-decoration: none;
 }
 
+.songs ol li a:hover .row {
+    background-color: #fff;
+}
+
 .songs ol li a .title {
     font-weight: bold;
 }
@@ -296,6 +320,9 @@ html, body {
 
 .player .currentInfo > div {
     padding: 3px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .player .currentInfo .title {

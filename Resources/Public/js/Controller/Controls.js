@@ -1,8 +1,11 @@
 // Playlists Controller
 angular.module('App').controller('Controls', ['$scope', '$http', 'Socket', 'VarStorage', 'Player', '$rootScope', function($scope, $http, Socket, VarStorage, Player, $rootScope) {
 
-    $scope.status = 'stopped';
+    $('#progress').knob();
+
+    $scope.status      = 'stopped';
     $scope.currentSong = {};
+    $scope.progress    = 0;
 
     // ==============================================================
     // CONTROLLER FUNCTIONS CALLED IN THE ANGULARJS HTML
@@ -70,6 +73,12 @@ angular.module('App').controller('Controls', ['$scope', '$http', 'Socket', 'VarS
     $scope.$on('error', function(e, args) {
         $scope.currentSong = {error: args.error};
         $scope.status = 'stopped';
+        $scope.$apply();
+    });
+
+    // Progress bar update
+    $scope.$on('progress', function(e, args) {
+        $scope.progress = args.progress;
         $scope.$apply();
     });
 
