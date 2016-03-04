@@ -39,7 +39,7 @@ angular.module('Services').factory('Player', ['$rootScope', 'VarStorage', functi
 
     // Duration status
     playerEl.addEventListener('timeupdate', function() {
-        var p = Math.ceil((this.currentTime / this.duration) * 100);
+        var p = (this.currentTime / this.duration) * 100;
         $rootScope.$broadcast('progress', {progress: p});
     });
 

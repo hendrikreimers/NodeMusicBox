@@ -13,8 +13,6 @@ angular.module('App').controller('Countdown', ['$scope', 'VarStorage', 'Player',
 
     var countdownInterval = null;
 
-
-
     // Initialize
     $('.knob').knob();
     playerEl.volume = 1;
