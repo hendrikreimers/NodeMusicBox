@@ -35,6 +35,7 @@ Whats next?
  * Remove as good as possible direct DOM usage without Angular in Controller.js, Playlists.js, Countdown.js
  * Maybe better streming performance if ffmpeg is used to transcode and stream?
  * Another Theme
+ * Integrate GraphicsMagick for smaller images and to optimize performance
 
 At the moment it works, but it's not finished! :-)
 Hope you enjoy it! Feel free to give me Feedback!
