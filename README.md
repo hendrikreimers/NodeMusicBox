@@ -20,11 +20,18 @@ With a config.json file in a "playlist" folder you can make some specials as sho
         "cssClass": "highlightThePlaylist"
       }
 
+Installation:
+
+      Clone the git or download it
+         npm install
+      Configure it (Configuration/...)
+      Run it:
+         node app.js
+
 At the moment it works, but it's not finished! :-)
 Hope you enjoy it! Feel free to give me Feedback!
 
 Best
 Hendrik
 
-kontakt@kern23.de
 www.kern23.de
