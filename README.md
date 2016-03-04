@@ -1,6 +1,8 @@
 NodeMusicPlayer
 ===============
 
+![Screenshot](http://stuff.kern23.de/github/nodemusicbox.jpg "Desktop and Mobile (Responsive) view")
+
 Lightweight and simple Music Player to Stream MP3 to Clients.
 Based on NodeJS, AngularJS, jQuery and Twitter Bootstrap.
 
