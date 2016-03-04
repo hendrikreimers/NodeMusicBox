@@ -1,0 +1,7 @@
+<div ng-controller="Playlist">
+    <ul>
+        <li class="playlist {{playlist.config.cssClass}}" id="list_{{playlist._id}}" data-noautoplay="{{playlist.config.noAutoplay}}" ng-repeat="playlist in playlists">
+            <a href="#" class="playlist" ng-click="select(playlist._id)">{{playlist.title}}</a>
+        </li>
+    </ul>
+</div>

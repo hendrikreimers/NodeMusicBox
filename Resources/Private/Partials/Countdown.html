@@ -1,0 +1,27 @@
+<div class="countdown row" ng-controller="Countdown">
+    <div class="view" ng-show="showCountdown">
+        <div class="row">
+            <div class="closeView col-xs-12">
+                <button type="button" class="btn btn-danger btn-lg glyphicon glyphicon-remove-circle" ng-click="(showCountdown = !showCountdown); (bodylock = !bodylock)"></button>
+            </div>
+        </div>
+        <div class="timer row">
+            <div class="col-sm-6">
+                <input type="text" value="2" class="knob" id="countdown-minutes" data-min="0" data-max="15">
+            </div>
+            <div class="col-sm-6">
+                <input type="text" value="30" class="knob" id="countdown-seconds" data-min="0" data-max="60">
+            </div>
+        </div>
+        <div class="buttons row">
+            <button type="button" id="countdownStart" class="btn btn-danger btn-lg" ng-click="start(count)">Start</button>
+            <button type="button" id="countdownStop" class="btn btn-default btn-lg disabled" ng-click="reset()">Stop</button>
+        </div>
+    </div>
+
+    <div class="col-sm-4 col-sm-push-8">
+        <div class="col-xs-2 col-xs-push-10">
+            <button type="button" class="btn btn-danger btn-lg glyphicon glyphicon-bullhorn" ng-click="(showCountdown = !showCountdown); scrollTo('top'); (bodylock = !bodylock)"></button>
+        </div>
+    </div>
+</div>

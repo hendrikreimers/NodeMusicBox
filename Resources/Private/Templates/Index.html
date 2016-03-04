@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de" ng-app="App">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PiMusicBox</title>
+
+  <!-- CSS -->
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/app.css" rel="stylesheet">
+
+  <link href="/css/themes/studio.css" rel="stylesheet">
+
+  <!-- Bootstrap JS libs -->
+  <script src="/js/libs/html5shiv.min.js"></script>
+  <script src="/js/libs/respond.min.js"></script>
+</head>
+<body id="top">
+  <div class="container-fluid max-height" ng-cloak>
+    <div class="row max-height">
+
+      <div class="system col-xs-12">
+        <div class="row">
+          <div class="col-sm-4 col-sm-push-8">
+            <%- include('../Partials/System.html') %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logo -->
+      <div class="logo col-sm-4">
+        <a href="/">NodeMusicBox</a>
+      </div>
+
+      <!-- Player -->
+      <div class="player col-sm-8">
+        <div class="wrapper">
+          <%- include('../Partials/Controls.html') %>
+        </div>
+      </div>
+
+      <!-- Playlists -->
+      <div class="playlists col-sm-4 max-height">
+        <div class="list">
+          <%- include('../Partials/Playlists.html') %>
+        </div>
+      </div>
+
+      <!-- Songlist -->
+      <div class="songs col-sm-8 col-sm-push-4 max-height">
+        <div class="list">
+          <%- include('../Partials/Songs.html') %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('../Partials/_Scripts.html') %>
+
+  <%- include('../Partials/CountdownLibs.html') %>
+</body>
+</html>

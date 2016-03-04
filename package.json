@@ -1,0 +1,24 @@
+{
+    "name": "mvc-demo",
+    "description": "MVC Demo App",
+    "author": {
+        "name": "Hendrik Reimers (KERN23)",
+        "email": "kontakt@kern23.de"
+    },
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "start": "node app"
+    },
+    "dependencies": {
+        "express": "*",
+        "ejs": "*",
+        "musicmetadata": "*",
+        "nedb": "*",
+        "http": "*",
+        "path": "*",
+        "fs": "*",
+        "socket.io": "*",
+        "angular": "*"
+    }
+}

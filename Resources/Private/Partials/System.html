@@ -1,0 +1,21 @@
+<div class="system" ng-controller="System">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-10">
+
+                <div class="settings input-group" ng-show="showSettings">
+                    <input type="password" class="password form-control" placeholder="reIndex Password" ng-model="password" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-danger" ng-click="index(password)">Go</button>
+                    </span>
+                </div>
+
+            </div>
+            <div class="col-xs-2">
+
+                <button type="button" class="btn btn-danger glyphicon glyphicon-cog" ng-click="showSettings = !showSettings"></button>
+
+            </div>
+        </div>
+    </div>
+</div>

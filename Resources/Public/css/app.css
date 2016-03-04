@@ -1,0 +1,336 @@
+
+* {
+    overflow: hidden;
+    overflow-x: hidden;
+}
+
+body {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+audio {
+    display: none;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: right;
+}
+
+
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.gly-spin {
+    -webkit-animation: spin 2s infinite linear;
+    -moz-animation: spin 2s infinite linear;
+    -o-animation: spin 2s infinite linear;
+    animation: spin 2s infinite linear;
+}
+@-moz-keyframes spin {
+    0% {
+        -moz-transform: rotate(0deg);
+    }
+    100% {
+        -moz-transform: rotate(359deg);
+    }
+}
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+    }
+}
+@-o-keyframes spin {
+    0% {
+        -o-transform: rotate(0deg);
+    }
+    100% {
+        -o-transform: rotate(359deg);
+    }
+}
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+/* --------------------------------------- */
+
+.logo a {
+    font-weight: bold;
+    font-size: 2em;
+    text-decoration: none;
+    color: #000;
+
+    display: block;
+
+    width: 100%;
+
+    max-width: 170px;
+    height: 163px;
+
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 20px;
+
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.logo img {
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.list {
+    position: fixed;
+    top: 220px;
+    bottom: 5%;
+    left: 0;
+    right: 0;
+    margin: 20px 5%;
+    overflow: auto;
+}
+
+@media screen and (max-width: 767px) {
+    .list {
+        position: static;
+    }
+
+    .currentInfo div {
+        text-align: center;
+    }
+}
+
+
+
+/* --------------------------------------- */
+/* This does the body full height trick    */
+
+html, body {
+    height: 100%;
+    overflow: auto;
+}
+
+.logo, .player {
+    min-height: 200px;
+}
+
+.container-fluid.max-height,
+.row.max-height {
+    height: 100%;
+    position: relative;
+}
+
+@media (min-width: 767px) {
+    .row.max-height > div.max-height {
+        position: absolute;
+        top: 200px;
+        bottom: 0;
+        right: 0;
+        left: 0;
+
+        overflow: hidden;
+        overflow-y: auto;
+    }
+
+    .row.max-height > div.max-height.col-sm-push-4 {
+        left: 33.3333%;
+    }
+
+    .playlists > .list {
+        right: 64%;
+    }
+
+    .songs > .list {
+        left: 36%;
+    }
+}
+
+@media (max-width: 767px) {
+    html, body,
+    .container-fluid.max-height,
+    .row.max-height,
+    .row.max-height > div.max-height {
+        position: static;
+        height: auto;
+        overflow: auto;
+        overflow-y: auto;
+    }
+
+    .list {
+        position: static;
+        background: transparent;
+    }
+}
+
+/* --------------------------------------- */
+
+.playlists ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.playlists ul li {
+    border-bottom: 1px solid #fff;
+}
+
+.playlists ul li a {
+    display: block;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
+}
+
+.playlists ul li a:hover {
+    background: #fff;
+}
+
+.playlists ul li.selected a {
+    background: rgba(0,0,0,0.3);
+}
+
+/* --------------------------------------- */
+
+.songs ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    counter-reset: section;
+}
+
+.songs .noPlaylist {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10%;
+}
+
+
+.songs ol li div {
+    margin: 0;
+    padding: 0;
+}
+
+.songs ol li {
+    border-top: 1px solid #fff;
+    position: relative;
+}
+
+.songs ol li:first-child {
+    border-top: 0;
+}
+
+.songs ol li.current {
+    background: #fff;
+}
+
+.songs ol li .info {
+    padding-top: 7px;
+}
+
+.songs ol li .cover::after {
+    counter-increment: section;
+    content: counters(section, ".", decimal-leading-zero) ". ";
+    font-weight: normal;
+    position: absolute;
+    top: 17px;
+    left: 65%;
+}
+
+.songs ol li a {
+    color: #000;
+    text-decoration: none;
+}
+
+.songs ol li a .title {
+    font-weight: bold;
+}
+
+@media (max-width: 1095px) {
+    .songs ol li .cover::after {
+        display: none;
+    }
+}
+
+/* --------------------------------------- */
+
+.player .wrapper {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+}
+
+.player .controls .currentImage img {
+    text-align: right;
+    float: right;
+    margin: 0;
+}
+
+.player .controls .currentInfo,
+.player .controls .buttons {
+    text-align: left;
+}
+
+.player .currentInfo > div {
+    padding: 3px;
+}
+
+.player .currentInfo .title {
+    font-weight: bold;
+}
+
+.player .buttons a.btn {
+    color: #000;
+    font-size: 2em;
+}
+
+.player .currentInfo .error {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 3%;
+    right: 0;
+    z-index: 99;
+    background: #333;
+    padding: 7%;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+@media screen and (max-width: 767px) {
+    .player .currentInfo .error,
+    .player .controls .buttons,
+    .player .controls .currentImage img {
+        position: static;
+        display: block;
+        float: none;
+        margin: 0 auto;
+        text-align: center;
+    }
+}
+
+/* --------------------------------------- */

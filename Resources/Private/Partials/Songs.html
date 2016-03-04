@@ -1,0 +1,23 @@
+<div ng-controller="Songs">
+    <div class="noPlaylist" ng-if="!songs.length">
+        <p>No Playlist selected!</p>
+    </div>
+    <ol>
+        <li class="song" id="song_{{song._id}}" data-index="{{index}}" ng-repeat="(index, song) in songs" on-finish-render="ngRepeatFinished">
+            <a href="#" class="song" ng-click="playSong(song._id, song.playlistId)">
+                <div class="container-fluid">
+                <div class="row">
+                    <div class="cover col-sm-2 hidden-xs">
+                        <img src="/api/cover/{{song._id}}" width="55" class="img-responsive" ng-show="song.cover">
+                        <img src="/img/no-cover.jpg" width="55" class="img-responsive" ng-show="!song.cover">
+                    </div>
+                    <div class="info col-sm-10">
+                        <div class="title">{{song.title}}</div>
+                        <div class="artist">{{song.artist}}</div>
+                    </div>
+                </div>
+                </div>
+            </a>
+        </li>
+    </ol>
+</div>
