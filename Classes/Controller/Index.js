@@ -72,87 +72,92 @@ module.exports = function(app, globalStorage) {
 
     // Scan for playlists
     mediaFolders.forEach(function(mediaFolder) {
-      // Check if media folder exists
-      var mediaFolderStat = fs.statSync(mediaFolder);
-      if ( !mediaFolderStat.isDirectory() ) return;
+      // Check if accessable
+      fs.access(mediaFolder, fs.R_OK, function(err) {
+        if ( err ) return;
 
-      if ( debug ) console.log('MediaFolder: ' + mediaFolder);
+        // Check if media folder exists
+        var mediaFolderStat = fs.statSync(mediaFolder);
+        if ( !mediaFolderStat.isDirectory() ) return;
 
-      fs.readdirSync(mediaFolder).forEach(function(dirItem, playlistIterator, dirItems) {
-        // check if its a folder
-        if (fs.lstatSync(mediaFolder + '/' + dirItem).isDirectory()) {
-          if ( debug ) console.log('Folder: ' + mediaFolder + '/' + dirItem);
+        if ( debug ) console.log('MediaFolder: ' + mediaFolder);
 
-          // Load playlist config if available
-          var playlistConfig = {},
-              configFile     = mediaFolder + '/' + dirItem + '/config.json';
-          fs.access(configFile, fs.R_OK, function(err) {
-            if ( !err ) playlistConfig = JSON.parse(fs.readFileSync(configFile));
+        fs.readdirSync(mediaFolder).forEach(function(dirItem, playlistIterator, dirItems) {
+          // check if its a folder
+          if (fs.lstatSync(mediaFolder + '/' + dirItem).isDirectory()) {
+            if ( debug ) console.log('Folder: ' + mediaFolder + '/' + dirItem);
 
-            // save to database
-            globalStorage.config.database.playlists.insert({
-              title: ( playlistConfig && playlistConfig.title ) ? playlistConfig.title : dirItem,
-              path: mediaFolder + '/' + dirItem,
-              config: playlistConfig
-            }, function(err, playlist) {
-              if ( err ) {
-                if ( debug ) console.log('PLAYLIST_ERROR: ' + err);
-                return;
-              }
+            // Load playlist config if available
+            var playlistConfig = {},
+                configFile     = mediaFolder + '/' + dirItem + '/config.json';
+            fs.access(configFile, fs.R_OK, function(err) {
+              if ( !err ) playlistConfig = JSON.parse(fs.readFileSync(configFile));
 
-              var playlistPath = playlist.path,
-                  playlistId   = playlist._id;
-
-              if ( debug ) console.log('Playlist: [' + playlistId + '] ' + playlist.title);
-
-              // Scan in current playlist for songs
-              fs.readdirSync(playlistPath).forEach(function(fileName) {
-                if (fs.lstatSync(playlist.path + '/' + fileName).isFile()) {
-                  if ( debug ) console.log('File: ' + fileName);
-
-                  if ( globalStorage.path.extname(fileName) != globalStorage.config.server.fileExtension ) return;
-
-                  // READ ID3
-                  globalStorage.mm(fs.createReadStream(playlistPath + '/' + fileName), { duration: true }, function(err, id3) {
-                    if ( err ) {
-                      if ( debug ) consoe.log('ID3_ERROR: ' + err);
-                      return;
-                    }
-
-                    globalStorage.config.database.songs.insert({
-                      playlistId: playlistId,
-                      fileName: fileName,
-
-                      title: ( id3.title ) ? id3.title : fileName.slice(0, -4),
-                      artist: ( id3.artist ) ? id3.artist[0] : '',
-                      duration: ( id3.duration ) ? id3.duration : 0,
-                      cover: ( id3.picture[0] ) ? true : false
-                    }, function (err, song) {
-                      if (err) {
-                        if (debug) console.log('SONG_ERROR: ' + fileName);
-                      }
-
-                      // Write Cover Image
-                      if ( id3.picture.length > 0 ) {
-                        fs.writeFile(__dirname + '/../../database/covers/' + song._id + '.jpg', id3.picture[0].data, function() {});
-                      }
-
-                      if (debug) console.log('Song: [' + song._id + '] ' + song.title + ' / ' + song.artist + ' / ' + song.duration);
-                    }); // end of storing song to db
-                  }); // end of getting ID3
+              // save to database
+              globalStorage.config.database.playlists.insert({
+                title: ( playlistConfig && playlistConfig.title ) ? playlistConfig.title : dirItem,
+                path: mediaFolder + '/' + dirItem,
+                config: playlistConfig
+              }, function(err, playlist) {
+                if ( err ) {
+                  if ( debug ) console.log('PLAYLIST_ERROR: ' + err);
+                  return;
                 }
-              }); // end of reading files
 
-              // FINISHED
-              if ( playlistIterator == (dirItems.length - 1) ) {
-                if ( debug ) console.log('Finished indexing');
-                broadcastIndexing(false);
-              }
+                var playlistPath = playlist.path,
+                    playlistId   = playlist._id;
 
-            }); // end of inserting playlist to db
-          });
-        }
-      }); // end of reading folders
+                if ( debug ) console.log('Playlist: [' + playlistId + '] ' + playlist.title);
+
+                // Scan in current playlist for songs
+                fs.readdirSync(playlistPath).forEach(function(fileName) {
+                  if (fs.lstatSync(playlist.path + '/' + fileName).isFile()) {
+                    if ( debug ) console.log('File: ' + fileName);
+
+                    if ( globalStorage.path.extname(fileName) != globalStorage.config.server.fileExtension ) return;
+
+                    // READ ID3
+                    globalStorage.mm(fs.createReadStream(playlistPath + '/' + fileName), { duration: true }, function(err, id3) {
+                      if ( err ) {
+                        if ( debug ) consoe.log('ID3_ERROR: ' + err);
+                        return;
+                      }
+
+                      globalStorage.config.database.songs.insert({
+                        playlistId: playlistId,
+                        fileName: fileName,
+
+                        title: ( id3.title ) ? id3.title : fileName.slice(0, -4),
+                        artist: ( id3.artist ) ? id3.artist[0] : '',
+                        duration: ( id3.duration ) ? id3.duration : 0,
+                        cover: ( id3.picture[0] ) ? true : false
+                      }, function (err, song) {
+                        if (err) {
+                          if (debug) console.log('SONG_ERROR: ' + fileName);
+                        }
+
+                        // Write Cover Image
+                        if ( id3.picture.length > 0 ) {
+                          fs.writeFile(__dirname + '/../../database/covers/' + song._id + '.jpg', id3.picture[0].data, function() {});
+                        }
+
+                        if (debug) console.log('Song: [' + song._id + '] ' + song.title + ' / ' + song.artist + ' / ' + song.duration);
+                      }); // end of storing song to db
+                    }); // end of getting ID3
+                  }
+                }); // end of reading files
+
+                // FINISHED
+                if ( playlistIterator == (dirItems.length - 1) ) {
+                  if ( debug ) console.log('Finished indexing');
+                  broadcastIndexing(false);
+                }
+
+              }); // end of inserting playlist to db
+            });
+          }
+        }); // end of reading folders
+      });
     });
   };
 
